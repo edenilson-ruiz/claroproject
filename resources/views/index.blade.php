@@ -1,13 +1,27 @@
 @extends('layouts.master')
 
 @section('content')
-    <h1>Project Management for Human Beings</h1>
+    @if (! Auth::check())
+        <h1>Project Management para Claro El Salvador</h1>
+        <p>Herramienta que permite el seguimiento de cada una de las etapas de un proyecto de Claro El Salvador, con esta plataforma se espera dar visibilidad de los proyectos que se estan ejecutando y el estado de sus tareas.</p>
+        <p><img src="{{ asset('images/projectmanagement.png') }}" /></p>
 
-    <p>The promise of ClaroProject is simple. All your projects and todos on one screen without having to filter by team or users. Finally, project management built just for humanbeings. Very Intuitve, Slick and crafted with the power of Laravel</p>
+        <a class="btn btn-large btn-info" href="/auth/register">Sign Up</a>
 
-    <p><img src="{{ asset('images/projectmanagement.png') }}" /></p>
+        <p class="login">Already signed up? <a class="btn btn-large btn-info" href="/auth/signin">Login</a></p>
+    @endif
 
-    <a class="btn btn-large btn-info" href="/auth/register">Sign Up</a>
+    @if ( Auth::check())
+        <div class="container-fluid">
+            <div class="row">
+                @include('layouts.partials.sidebar')
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <h1 class="page-header">Dashboard</h1>
 
-    <p class="login">Already signed up? <a class="btn btn-large btn-info" href="/auth/signin">Login</a></p>
+                    <h2 class="sub-header">Projects</h2>
+                    <a class="btn btn-info" href="{{ route('projects.create') }}">New Project</a>
+                </div>
+            </div>
+        </div>
+    @endif
 @stop
